@@ -12,7 +12,6 @@ import {
   Activity
 } from 'lucide-react';
 import { useLogin } from './useLogin';
-import { QuickLogin } from './QuickLogin';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
 
 
@@ -21,7 +20,7 @@ import { ForgotPasswordModal } from './ForgotPasswordModal';
 // LOGIN PAGE COMPONENT
 // ═══════════════════════════════════════
 export function LoginPage() {
-  const { form, serverError, shouldShake, isLoading, onSubmit, quickLogin } = useLogin();
+  const { form, serverError, shouldShake, isLoading, onSubmit } = useLogin();
   const { register, formState: { errors } } = form;
   const [showPassword, setShowPassword] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -304,9 +303,6 @@ export function LoginPage() {
                 )}
               </button>
             </form>
-
-            {/* Quick Login (dev helper) */}
-            <QuickLogin onSelect={quickLogin} isLoading={isLoading} />
 
             {/* Bottom security text */}
             <div className="flex items-center justify-center gap-1.5 mt-8 text-[11px] text-text-muted">
