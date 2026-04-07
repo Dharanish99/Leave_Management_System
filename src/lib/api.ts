@@ -29,7 +29,8 @@ async function request<T = any>(
 ): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
-    'Bypass-Tunnel-Reminder': 'true'
+    'Bypass-Tunnel-Reminder': 'true',
+    'ngrok-skip-browser-warning': 'true'
   };
 
   if (token) {
