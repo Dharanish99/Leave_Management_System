@@ -1,0 +1,2 @@
+src/components/ui/EmptyState.tsx(16,15): error TS2322: Type 'string' is not assignable to type 'never'.
+src/components/ui/StatCard.tsx(40,17): error TS2322: Type 'string' is not assignable to type 'never'.
