@@ -7,7 +7,7 @@ import { CheckCircle, XCircle, Users, AlertCircle, CalendarDays } from 'lucide-r
 
 export function HoDDashboard() {
   const { user } = useAuthStore();
-  const { getLeavesByDepartment, approveLeave, rejectLeave, forwardLeave, fetchLeaves } = useLeaveStore();
+  const { getLeavesByDepartment, fetchLeaves } = useLeaveStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,39 +88,14 @@ export function HoDDashboard() {
                     key={leave.id} 
                     leave={leave}
                     actions={
-                      <div className="flex gap-2 w-full">
-                        <Button 
-                          variant="secondary" 
-                          size="sm" 
-                          fullWidth 
-                          onClick={() => {
-                            const remark = prompt('Reason for rejection:') || 'Rejected by HoD.';
-                            rejectLeave(leave.id, remark, 'hod');
-                          }}
-                        >
-                          Reject
-                        </Button>
-                        <Button 
-                          variant="secondary" 
-                          size="sm" 
-                          fullWidth 
-                          onClick={() => {
-                            const remark = prompt('Reason to forward:') || 'Forwarded to Principal for approval.';
-                            forwardLeave(leave.id, remark);
-                          }}
-                        >
-                          Forward
-                        </Button>
+                      <div className="flex w-full">
                         <Button 
                           variant="primary" 
                           size="sm" 
                           fullWidth 
-                          onClick={() => {
-                            const remark = prompt('HoD Remark:') || 'Approved by HoD.';
-                            approveLeave(leave.id, remark, 'hod');
-                          }}
+                          onClick={() => navigate('/leaves/review')}
                         >
-                          Approve
+                          Review Request
                         </Button>
                       </div>
                     }
