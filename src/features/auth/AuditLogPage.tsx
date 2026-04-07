@@ -6,6 +6,7 @@ import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Search, Download, Filter, FileText } from 'lucide-react';
 import type { AuditLog } from '../../types';
+import { formatAuditAction } from '../../lib/utils';
 
 export function AuditLogPage() {
   const { logs, fetchLogs, exportCSV } = useAuditLogStore();
@@ -154,7 +155,7 @@ export function AuditLogPage() {
                 accessor: 'detail',
                 render: (row: AuditLog) => (
                   <div className="min-w-[200px] max-w-[350px] break-words text-sm text-text-secondary pt-1">
-                    {row.detail || '-'}
+                    {formatAuditAction(row.action, row.detail)}
                   </div>
                 )
               }

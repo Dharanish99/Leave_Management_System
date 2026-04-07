@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../components/ui';
 import { AlertCircle, FileText, CheckCircle, Users } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { timeAgo } from '../../../lib/utils';
+import { formatAuditAction, timeAgo } from '../../../lib/utils';
 import { api } from '../../../lib/api';
 
 const CHART_COLORS = ['#E8630A', '#0D1117', '#8896A5', '#C8D3DF'];
@@ -172,7 +172,7 @@ export function PrincipalDashboard() {
             <div key={log.id} className="relative pl-6">
               <div className="absolute left-[-26px] top-1 w-3 h-3 bg-surface border-2 border-accent rounded-full z-10" />
               <div>
-                <p className="text-sm font-medium text-text-primary">{log.detail || log.action}</p>
+                <p className="text-sm font-medium text-text-primary">{formatAuditAction(log.action, log.detail)}</p>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-xs text-text-muted">{timeAgo(log.timestamp)}</span>
                   <span className="text-xs text-text-muted">&bull;</span>

@@ -107,3 +107,35 @@ export function exportToCSV(data: AuditLog[], filename: string) {
   a.click()
   URL.revokeObjectURL(url)
 }
+
+/**
+ * Format audit log details into human readable strings
+ */
+export function formatAuditAction(action: string, detailStr: string | null): string {
+  const baseAction = action.replace(/_/g, ' ').toLowerCase();
+  const titleCaseAction = baseAction.charAt(0).toUpperCase() + baseAction.slice(1);
+
+  if (!detailStr) return titleCaseAction;
+  
+  try {
+    const parsed = JSON.parse(detailStr);
+    if (!parsed || Object.keys(parsed).length === 0) return titleCaseAction;
+    
+    if (action === 'LEAVE_APPLIED') {
+       return `Applied for ${parsed.days || parsed.totalDays || '?'} days of ${parsed.leaveType || 'leave'}`;
+    }
+    if (action === 'LEAVE_STATUS_CHANGED') {
+       const status = parsed.status?.replace(/_/g, ' ') || 'updated';
+       return `Leave ${status}`;
+    }
+    
+    const params = Object.entries(parsed)
+      .filter(([k]) => k !== 'id' && k !== 'password')
+      .map(([k, v]) => `${k}: ${v}`)
+      .join(', ');
+      
+    return params ? `${titleCaseAction} (${params})` : titleCaseAction;
+  } catch (e) {
+    return detailStr;
+  }
+}
