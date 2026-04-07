@@ -28,7 +28,9 @@ async function request<T = any>(
   options: { isFormData?: boolean } = {}
 ): Promise<T> {
   const token = getToken();
-  const headers: Record<string, string> = {};
+  const headers: Record<string, string> = {
+    'Bypass-Tunnel-Reminder': 'true'
+  };
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
